@@ -132,112 +132,62 @@ struct ContentView: View {
         VStack(spacing: 4) {
             
             Group {
-                if let image = selectedImage {
-                    RoundedRectangle(cornerRadius: 16)
-                        .foregroundColor(.clear)
-                        .frame(height: geometry.size.height * 0.35)
-                        .overlay(
-                            Image(nsImage: image)
-                                .resizable()
-                                .scaledToFit()
-                                .clipShape(RoundedRectangle(cornerRadius: 16))
-                                .overlay(
-                                    VStack {
-                                        HStack {
-                                            Label("KAMERA GANDAR", systemImage: "camera.fill")
-                                                .foregroundColor(.white)
-                                                .font(.system(size: 14, weight: .semibold))
-                                                .padding(.horizontal, 12)
-                                                .padding(.vertical, 6)
-                                                .background(
-                                                    RoundedRectangle(cornerRadius: 20)
-                                                        .fill(.black.opacity(0.7))
-                                                )
-                                            Spacer()
-                                        }
+                RoundedRectangle(cornerRadius: 16)
+                    .foregroundColor(.clear)
+                    .frame(height: geometry.size.height * 0.35)
+                    .overlay(
+                        KameraGandarView()
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                            .overlay(
+                                VStack {
+                                    HStack {
+                                        Label("KAMERA GANDAR", systemImage: "camera.fill")
+                                            .foregroundColor(.white)
+                                            .font(.system(size: 14, weight: .semibold))
+                                            .padding(.horizontal, 12)
+                                            .padding(.vertical, 6)
+                                            .background(
+                                                RoundedRectangle(cornerRadius: 20)
+                                                    .fill(.black.opacity(0.7))
+                                            )
                                         Spacer()
                                     }
-                                    .padding(12)
-                                )
-                        )
-                        .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
-                        .overlay(
-                            VStack {
-                                Spacer()
-                                HStack {
                                     Spacer()
-                                    Button("Upload Gambar Baru") {
-                                        selectImage()
-                                    }
-                                    .buttonStyle(ModernButtonStyle(color: Color(hex: "059669")))
-                                    .disabled(isProcessing)
                                 }
                                 .padding(12)
-                            }
-                        )
-                } else {
-                    RoundedRectangle(cornerRadius: 16)
-                        .foregroundStyle(
-                            LinearGradient(
-                                colors: [Color(hex: "6b7280"), Color(hex: "9ca3af")],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
                             )
-                        )
-                        .frame(height: geometry.size.height * 0.35)
-                        .overlay(
-                            VStack(spacing: 16) {
-                                Image(systemName: "camera.fill")
-                                    .font(.system(size: 50))
-                                    .foregroundColor(.white)
-                                    .opacity(0.8)
-                                
-                                Text("KAMERA GANDAR")
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 16, weight: .semibold))
-                                
-                                Button("Pilih Gambar") {
-                                    selectImage()
-                                }
-                                .buttonStyle(ModernButtonStyle(color: Color(hex: "4338ca")))
-                                .disabled(isProcessing)
-                            }
-                        )
-                        .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
-                }
+                    )
+                    .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+
             }
             
-            
             RoundedRectangle(cornerRadius: 16)
-                .foregroundStyle(
-                    LinearGradient(
-                        colors: [Color(hex: "059669"), Color(hex: "10b981")],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
+                .foregroundColor(.clear)
                 .frame(height: geometry.size.height * 0.35)
                 .overlay(
-                    VStack(spacing: 16) {
-                        if isProcessing {
-                            ProgressView()
-                                .scaleEffect(2)
-                                .tint(.white)
-                            Text("Memproses Klasifikasi...")
-                                .foregroundColor(.white)
-                                .font(.system(size: 16, weight: .semibold))
-                        } else {
-                            Image(systemName: "road.lanes")
-                                .font(.system(size: 50))
-                                .foregroundColor(.white)
-                                .opacity(0.8)
-                            Text("KAMERA LAJUR")
-                                .foregroundColor(.white)
-                                .font(.system(size: 16, weight: .semibold))
-                        }
-                    }
+                    KameraLajurView()
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .overlay(
+                            VStack {
+                                HStack {
+                                    Label("KAMERA LAJUR", systemImage: "camera.fill")
+                                        .foregroundColor(.white)
+                                        .font(.system(size: 14, weight: .semibold))
+                                        .padding(.horizontal, 12)
+                                        .padding(.vertical, 6)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .fill(.black.opacity(0.7))
+                                        )
+                                    Spacer()
+                                }
+                                Spacer()
+                            }
+                            .padding(12)
+                        )
                 )
                 .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+
         }
         .frame(width: geometry.size.width * 0.42)
         .padding(.leading, geometry.size.width * 0.015)
