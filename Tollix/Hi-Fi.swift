@@ -1,33 +1,47 @@
 import SwiftUI
 
 struct Hi_Fi: View {
+    
+    @State private var currentTime = Date()
+    
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    
     var body: some View {
+        
+        
         GeometryReader { geometry in
             VStack(spacing: 0) {
 
                 // HEADER
                 HStack {
                     HStack(spacing: geometry.size.width * 0.012) {
-                        Rectangle()
-                            .foregroundColor(.gray.opacity(0.5))
-                            .frame(width: geometry.size.width * 0.04, height: geometry.size.width * 0.04)
-                            .overlay(Text("Logo").font(.caption))
+                        Image("logo_Tica_blue")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: geometry.size.height * 0.045
+                            )
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Tollix")
-                                .font(.system(size: geometry.size.width * 0.02, weight: .bold, design: .rounded))
+                                .font(.system(size: geometry.size.width * 0.013, weight: .semibold))
                             Text("Classification Assistant")
-                                .font(.system(size: geometry.size.width * 0.015, design: .rounded))
+                                .font(.system(size: geometry.size.width * 0.010))
                         }
                     }
                     Spacer()
                     VStack(alignment: .trailing, spacing: 6) {
-                        Text("Senin, 06 Juni 2026")
-                            .font(.system(size: geometry.size.width * 0.015, weight: .bold, design: .rounded))
-                        Text("00:00:00")
-                            .font(.system(size: geometry.size.width * 0.02, weight: .bold, design: .rounded))
+                        Text(DateFormatter.dayFormatter.string(from: currentTime))
+                            .font(.system(size: geometry.size.width * 0.010, weight: .regular))
+                        Text(DateFormatter.timeFormatter.string(from: currentTime))
+                            .font(.system(size: geometry.size.width * 0.013, weight: .semibold))
+                            .foregroundColor(Color(hex: "1E88E5"))
+//                            .padding(.horizontal, 8)
+                    }
+                    .onReceive(timer) { input in
+                        currentTime = input
                     }
                 }
-                .padding(.horizontal, geometry.size.width * 0.03)
+                .padding(.horizontal, geometry.size.width * 0.015)
                 .padding(.vertical, geometry.size.height * 0.015)
                 .background(Color.white)
                 .overlay(Rectangle().frame(height: 4).foregroundColor(.blue), alignment: .bottom)
@@ -39,7 +53,7 @@ struct Hi_Fi: View {
                     VStack(spacing: geometry.size.height * 0.02) {
                         RoundedRectangle(cornerRadius: 16)
                             .foregroundColor(.clear)
-                            .frame(height: geometry.size.height * 0.35)
+                            .frame(height: geometry.size.height * 0.42)
                             .overlay(
                                 KameraGandarView()
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
@@ -66,7 +80,7 @@ struct Hi_Fi: View {
                         
                         RoundedRectangle(cornerRadius: 16)
                             .foregroundColor(.clear)
-                            .frame(height: geometry.size.height * 0.35)
+                            .frame(height: geometry.size.height * 0.42)
                             .overlay(
                                 KameraLajurView()
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
@@ -91,6 +105,8 @@ struct Hi_Fi: View {
                             )
                             .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
                     }
+                    .padding(.leading, 16)
+                    .padding(.vertical, 16)
                     // KANAN: KONTEN
                         
                     VStack(spacing: geometry.size.height * 0.025) {
@@ -197,7 +213,24 @@ struct Hi_Fi: View {
             }
             .background(Color.gray.opacity(0.1))
         }
+        
+        
     }
+}
+
+extension DateFormatter {
+    static let tollixTimeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        return formatter
+    }()
+
+    static let tollixDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "id_ID")
+        formatter.dateFormat = "EEEE, dd MMMM yyyy"
+        return formatter
+    }()
 }
 
 @ViewBuilder
@@ -225,6 +258,27 @@ func InfoBox(
     .background(Color.white)
     .cornerRadius(16)
     .shadow(color: .black.opacity(0.07), radius: 4, x: 0, y: 2)
+}
+
+extension DateFormatter {
+    static let dayFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "id_ID")
+        formatter.dateFormat = "EEEE, dd MMMM yyyy"
+        return formatter
+    }()
+    
+    static let timeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        return formatter
+    }()
+    
+    static let timeOnlyFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        return formatter
+    }()
 }
 
 
