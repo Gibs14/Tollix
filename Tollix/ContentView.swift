@@ -474,7 +474,7 @@ extension ContentView {
         isProcessing = true
         
         
-        guard let model = try? VNCoreMLModel(for: VehicleClass().model),
+        guard let model = try? VNCoreMLModel(for: VehClassNWST().model),
               let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil)
         else {
             showErrorMessage("Gagal memuat model klasifikasi atau mengkonversi gambar")
