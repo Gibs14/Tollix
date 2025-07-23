@@ -228,6 +228,6 @@ func InfoBox(
 }
 
 
-//#Preview {
-//    Hi_Fi()
-//}
+#Preview {
+    Hi_Fi()
+}
