@@ -11,7 +11,7 @@ import SwiftUI
 struct TollixApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Hi_Fi()
         }
         .windowStyle(DefaultWindowStyle())
         .windowResizability(.contentSize)
