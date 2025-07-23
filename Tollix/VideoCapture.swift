@@ -43,7 +43,7 @@ class VideoCaptureCoordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDel
     override init() {
         do {
             // Load both models
-            let vehicleClassifier = try VehicleClass(configuration: MLModelConfiguration()).model
+            let vehicleClassifier = try VehClassNWST(configuration: MLModelConfiguration()).model
             classificationModel = try VNCoreMLModel(for: vehicleClassifier)
 
             let wheelDetector = try WheelDetect(configuration: MLModelConfiguration()).model
