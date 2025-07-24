@@ -9,8 +9,18 @@ import Foundation
 import AVFoundation
 import Vision
 import CoreML
+import Combine
 
-class VideoCaptureCoordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
+// MARK: - Detection Result Models
+struct VehicleDetection {
+    let vehicleType: String
+    let confidence: Float
+    let wheelCount: Int
+    let golongan: Int
+    let timestamp: Date
+}
+
+class VideoCaptureCoordinator: NSObject, ObservableObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     var session = AVCaptureSession()
     
     let classificationModel: VNCoreMLModel
@@ -20,25 +30,93 @@ class VideoCaptureCoordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDel
     private var detectionCooldown: TimeInterval = 5.0 // seconds
     private var isRunningDetection = false
     
+    // MARK: - Published Properties untuk UI
+    @Published var currentVehicleType: String = ""
+    @Published var currentGolongan: Int = 0
+    @Published var currentWheelCount: Int = 0
+    @Published var currentConfidence: Float = 0.0
+    @Published var detectionStatus: String = "Menunggu kendaraan..."
+    @Published var shouldActivateGolongan: Bool = false
+    
+    // MARK: - Vehicle Classification Logic
+    private func determineGolongan(vehicleType: String, wheelCount: Int) -> Int {
+        let type = vehicleType.lowercased()
+        
+        switch type {
+        case let t where t.contains("motorcycle") || t.contains("motor"):
+            return 1
+        case let t where t.contains("car") || t.contains("sedan") || t.contains("suv"):
+            return 1
+        case let t where t.contains("truck") || t.contains("lorry"):
+            // Berdasarkan jumlah ban untuk truck
+            if wheelCount == 2 {
+                return 2
+            } else if wheelCount == 3 {
+                return 3
+            } else if wheelCount == 4 {
+                return 4
+            } else if wheelCount == 5 {
+                return 5
+            } else {
+                return 1
+            }
+            
+        case let t where t.contains("bus"):
+            return 1
+        default:
+            // Fallback berdasarkan jumlah ban saja
+            if wheelCount <= 2 {
+                return 1
+            } else if wheelCount <= 4 {
+                return 2
+            } else if wheelCount <= 6 {
+                return 3
+            } else {
+                return 4
+            }
+        }
+    }
+    
     func runDetection(on pixelBuffer: CVPixelBuffer) {
-            let request = VNCoreMLRequest(model: detectionModel) { request, error in
-                guard let results = request.results as? [VNRecognizedObjectObservation] else {
-                    print("❌ No objects detected")
-                    return
+        let request = VNCoreMLRequest(model: detectionModel) { [weak self] request, error in
+            guard let self = self else { return }
+            
+            guard let results = request.results as? [VNRecognizedObjectObservation] else {
+                print("❌ No objects detected")
+                DispatchQueue.main.async {
+                    self.detectionStatus = "Tidak ada objek terdeteksi"
                 }
-
-                for result in results {
-                    let label = result.labels.first?.identifier ?? "Unknown"
-                    let confidence = result.labels.first?.confidence ?? 0
-                    print("🔎 Detected \(label) (\(Int(confidence * 100))%)")
-                }
+                return
             }
 
-            request.imageCropAndScaleOption = .scaleFill
-
-            let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:])
-            try? handler.perform([request])
+            var wheelCount = 0
+            for result in results {
+                let label = result.labels.first?.identifier ?? "Unknown"
+                let confidence = result.labels.first?.confidence ?? 0
+                
+                if label.lowercased().contains("wheel") || label.lowercased().contains("tire") {
+                    wheelCount += 1
+                }
+                
+                print("🔎 Detected \(label) (\(Int(confidence * 100))%)")
+            }
+            
+            // Update UI di main thread
+            DispatchQueue.main.async {
+                self.currentWheelCount = wheelCount
+                let golongan = self.determineGolongan(vehicleType: self.currentVehicleType, wheelCount: wheelCount)
+                self.currentGolongan = golongan
+                self.shouldActivateGolongan = true
+                self.detectionStatus = "Terdeteksi: \(self.currentVehicleType) - \(wheelCount) ban - Gol.\(golongan)"
+                
+                print("🎯 FINAL RESULT: Vehicle: \(self.currentVehicleType), Wheels: \(wheelCount), Golongan: \(golongan)")
+            }
         }
+
+        request.imageCropAndScaleOption = .scaleFill
+        let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:])
+        try? handler.perform([request])
+    }
 
     override init() {
         do {
@@ -51,11 +129,16 @@ class VideoCaptureCoordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDel
         } catch {
             fatalError("❌ Failed to load one of the models: \(error)")
         }
+        
         super.init()
+        setupCamera()
+    }
+    
+    private func setupCamera() {
         session.sessionPreset = .high
 
         guard let device = AVCaptureDevice.devices(for: .video).first(where: { $0.localizedName.contains("iPhone") }) else {
-            print("C270 webcam not found")
+            print("iPhone camera not found")
             return
         }
 
@@ -91,11 +174,13 @@ class VideoCaptureCoordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDel
         let now = Date()
         guard now.timeIntervalSince(lastDetectionTime) > detectionCooldown else { return }
 
-        classify(pixelBuffer: pixelBuffer) // separate method
+        classify(pixelBuffer: pixelBuffer)
     }
     
     private func classify(pixelBuffer: CVPixelBuffer) {
-        let request = VNCoreMLRequest(model: classificationModel) { request, error in
+        let request = VNCoreMLRequest(model: classificationModel) { [weak self] request, error in
+            guard let self = self else { return }
+            
             guard let results = request.results as? [VNClassificationObservation],
                   let topResult = results.first else { return }
 
@@ -104,8 +189,15 @@ class VideoCaptureCoordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDel
 
             print("🧠 Vehicle type: \(label), Confidence: \(confidence)")
 
-            // Trigger detection ONLY for trucks
-            if label.contains("truck"), !self.isRunningDetection {
+            // Update UI di main thread
+            DispatchQueue.main.async {
+                self.currentVehicleType = label
+                self.currentConfidence = confidence
+                self.detectionStatus = "Mengklasifikasi: \(label)"
+            }
+
+            // Trigger detection untuk semua kendaraan (tidak hanya truck)
+            if confidence > 0.5 && !self.isRunningDetection {
                 self.isRunningDetection = true
                 self.lastDetectionTime = Date()
 
@@ -121,7 +213,26 @@ class VideoCaptureCoordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDel
         let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:])
         try? handler.perform([request])
     }
-
-
+    
+    // MARK: - Public Methods untuk UI
+    func resetDetection() {
+        DispatchQueue.main.async {
+            self.currentVehicleType = ""
+            self.currentGolongan = 0
+            self.currentWheelCount = 0
+            self.currentConfidence = 0.0
+            self.shouldActivateGolongan = false
+            self.detectionStatus = "Menunggu kendaraan..."
+        }
+    }
+    
+    func confirmVehicle() -> VehicleDetection {
+        return VehicleDetection(
+            vehicleType: currentVehicleType,
+            confidence: currentConfidence,
+            wheelCount: currentWheelCount,
+            golongan: currentGolongan,
+            timestamp: Date()
+        )
+    }
 }
-
