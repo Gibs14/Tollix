@@ -19,7 +19,7 @@
 //    @State private var showConfirmationAlert = false
 //
 //    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-//    
+//
 //    private let tarifGolongan = [
 //        0: "Rp0",
 //        1: "Rp9.500",
@@ -28,17 +28,17 @@
 //        4: "Rp18.000",
 //        5: "Rp22.000"
 //    ]
-//    
+//
 //    var body: some View {
 //        GeometryReader { geometry in
 //            VStack(spacing: 0) {
 //                // HEADER
 //                headerSection(geometry: geometry)
-//                
+//
 //                HStack(spacing: 0) {
 //                    // KIRI KAMERA
 //                    cameraSection(geometry: geometry)
-//                    
+//
 //                    // KANAN KONTEN
 //                    contentSection(geometry: geometry)
 //                }
@@ -73,9 +73,9 @@
 //            Text("Golongan telah dikonfirmasi dan data kendaraan telah diperbarui.")
 //        }
 //    }
-//    
-//    
-//    
+//
+//
+//
 //    func headerSection(geometry: GeometryProxy) -> some View {
 //        VStack(spacing: 0) {
 //            HStack {
@@ -96,7 +96,7 @@
 //                                .font(.title)
 //                        )
 //                        .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
-//                    
+//
 //                    VStack(alignment: .leading, spacing: 4) {
 //                        Text("Tollix")
 //                            .bold()
@@ -108,8 +108,8 @@
 //                    }
 //                }
 //                Spacer()
-//                
-//                
+//
+//
 //                VStack(alignment: .trailing, spacing: 8) {
 //                    Text(DateFormatter.dayFormatter.string(from: currentTime))
 //                        .font(.system(size: 18, weight: .semibold))
@@ -128,8 +128,8 @@
 //            }
 //            .padding(.horizontal, geometry.size.width * 0.04)
 //            .padding(.vertical, geometry.size.height * 0.025)
-//            
-//            
+//
+//
 //            Rectangle()
 //                .frame(height: 3)
 //                .foregroundStyle(
@@ -143,10 +143,10 @@
 //        .background(Color.white)
 //        .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
 //    }
-//    
+//
 //    func cameraSection(geometry: GeometryProxy) -> some View {
 //        VStack(spacing: 4) {
-//            
+//
 //            Group {
 //                KameraGandarView()
 //                    .foregroundColor(.clear)
@@ -179,7 +179,7 @@
 //                    .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
 //
 //            }
-//            
+//
 //            KameraLajurView()
 //                .foregroundColor(.clear)
 //                .frame(height: geometry.size.height * 0.35)
@@ -216,13 +216,13 @@
 //        .padding(.bottom, 24)
 //        .padding(.trailing, geometry.size.width * 0.005)
 //    }
-//    
+//
 //    func contentSection(geometry: GeometryProxy) -> some View {
 //        VStack(alignment: .leading, spacing: 0) {
-//            
+//
 //            classificationSection(geometry: geometry)
-//            
-//            
+//
+//
 //            Rectangle()
 //                .frame(height: 2)
 //                .foregroundStyle(
@@ -234,10 +234,10 @@
 //                )
 //                .padding(.horizontal, geometry.size.width * 0.015)
 //                .padding(.vertical, geometry.size.height * 0.02)
-//            
-//            
+//
+//
 //            bottomSection(geometry: geometry)
-//            
+//
 //            Spacer()
 //        }
 //        .frame(width: geometry.size.width * 0.56)
@@ -248,16 +248,16 @@
 //        .padding(.trailing, geometry.size.width * 0.015)
 //        .padding(.bottom, 24)
 //    }
-//    
+//
 //    func classificationSection(geometry: GeometryProxy) -> some View {
 //        VStack(alignment: .leading, spacing: geometry.size.height * 0.025) {
-//            
+//
 //            HStack(spacing: geometry.size.width * 0.01) {
 //                ForEach(1...5, id: \.self) { idx in
 //                    let categoryKey = getRomanNumeral(idx)
 //                    let isActive = videoCaptureCoordinator.currentGolongan == idx && videoCaptureCoordinator.shouldActivateGolongan
 //                    let percentage = isActive ? String(format: "%.0f%%", videoCaptureCoordinator.currentConfidence * 100) : "0%"
-//                    
+//
 //                    VStack(spacing: 6) {
 //                        Text("Gol. \(idx)")
 //                            .font(.system(size: 11, weight: .medium))
@@ -296,8 +296,8 @@
 //            }
 //            .frame(maxWidth: .infinity)
 //            .padding(.horizontal, geometry.size.width * 0.015)
-//            
-//            
+//
+//
 //            VStack(spacing: 12) {
 //                DetailCard(title: "Golongan",
 //                          value: videoCaptureCoordinator.shouldActivateGolongan ?
@@ -313,10 +313,10 @@
 //        }
 //        .padding(.vertical, geometry.size.height * 0.03)
 //    }
-//    
+//
 //    func bottomSection(geometry: GeometryProxy) -> some View {
 //        VStack(spacing: geometry.size.height * 0.025) {
-//            
+//
 //            Text("Tol Pondok Aren 1")
 //                .font(.system(size: 28, weight: .bold, design: .rounded))
 //                .foregroundStyle(
@@ -327,15 +327,15 @@
 //                    )
 //                )
 //                .padding(.vertical, geometry.size.height * 0.02)
-//            
+//
 //            HStack(alignment: .top, spacing: geometry.size.width * 0.02) {
-//                
+//
 //                VStack(alignment: .leading, spacing: 12) {
 //                    Text("Jumlah Kendaraan")
 //                        .font(.system(size: 18, weight: .bold))
 //                        .foregroundColor(Color(hex: "374151"))
 //                        .padding(.bottom, 6)
-//                    
+//
 //                    VStack(spacing: 6) {
 //                        ForEach(["I", "II", "III", "IV", "V"], id: \.self) { g in
 //                            HStack {
@@ -364,10 +364,10 @@
 //                    }
 //                }
 //                .frame(maxWidth: .infinity)
-//                
-//               
+//
+//
 //                VStack(alignment: .trailing, spacing: 12) {
-//                   
+//
 //                    HStack {
 //                        Image(systemName: "clock.fill")
 //                            .foregroundColor(Color(hex: "7c3aed"))
@@ -381,8 +381,8 @@
 //                        RoundedRectangle(cornerRadius: 10)
 //                            .fill(Color(hex: "7c3aed").opacity(0.1))
 //                    )
-//                    
-//                 
+//
+//
 //                    HStack(spacing: 12) {
 //                        StaffCard(name: "Gibran Shevaldo", role: "Operator 1")
 //                        StaffCard(name: "Jonathan Tjahjadi", role: "Operator 2")
@@ -394,17 +394,17 @@
 //        }
 //        .padding(.bottom, geometry.size.height * 0.03)
 //    }
-//    
+//
 //    private func updateTarif(for golongan: Int) {
 //        tarif = tarifGolongan[golongan] ?? "Rp9.500"
 //    }
-//    
+//
 //    private func updateVehicleCount(for category: String) {
 //        if let currentCount = vehicleCount[category] {
 //            vehicleCount[category] = currentCount + 1
 //        }
 //    }
-//    
+//
 //    private func getRomanNumeral(_ number: Int) -> String {
 //        switch number {
 //        case 1: return "I"
@@ -415,7 +415,7 @@
 //        default: return "I"
 //        }
 //    }
-//    
+//
 //    private func confirmGolongan(with key: Int) {
 //        guard isAwaitingConfirmation,
 //              let golongan = pendingGolongan,
@@ -453,21 +453,22 @@ struct ContentView: View {
     @State private var tarif: String = "Rp9.500"
     @State private var vehicleCount: [String: Int] = ["I": 0, "II": 0, "III": 0, "IV": 0, "V": 0]
     @State private var currentTime = Date()
-    @State private var paymentStatus = "BELUM TERBAYAR"
+    @State private var paymentStatus = "BELUM TERBAYAR" 
+    @State private var paymentCard = "-"
     @State private var isAwaitingConfirmation: Bool = false
     @State private var pendingGolongan: Int?
     @State private var showConfirmationAlert = false
     @State private var confirmedGolongan: String = ""
-
+    
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     private let tarifGolongan = [
         0: "Rp0",
         1: "Rp9.500",
-        2: "Rp12.000",
-        3: "Rp15.500",
-        4: "Rp18.000",
-        5: "Rp22.000"
+        2: "Rp14.000",
+        3: "Rp14.500",
+        4: "Rp18.500",
+        5: "Rp18.500"
     ]
     
     var body: some View {
@@ -524,60 +525,37 @@ struct ContentView: View {
     func headerSection(geometry: GeometryProxy) -> some View {
         VStack(spacing: 0) {
             HStack {
-                HStack(spacing: geometry.size.width * 0.015) {
-                    // Logo dengan gradient background
-                    RoundedRectangle(cornerRadius: 12)
-                        .frame(width: 70, height: 70)
-                        .foregroundStyle(
-                            LinearGradient(
-                                colors: [Color(hex: "4338ca"), Color(hex: "6366f1")],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .overlay(
-                            Image(systemName: "car.2.fill")
-                                .foregroundColor(.white)
-                                .font(.title)
-                        )
-                        .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 2)
-                    
+                HStack(spacing: geometry.size.width * 0.012) {
+                    Image("logo_Tica_blue")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: geometry.size.height * 0.045)
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Tollix")
-                            .bold()
-                            .font(.system(size: 32, weight: .bold, design: .rounded))
-                            .foregroundColor(Color(hex: "1f2937"))
-                        Text("Smart Toll Classification System")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(Color(hex: "6b7280"))
+                            .font(.system(size: geometry.size.width * 0.013, weight: .semibold))
+                        Text("Classification Assistant")
+                            .font(.system(size: geometry.size.width * 0.010))
                     }
                 }
                 Spacer()
                 
                 VStack(alignment: .trailing, spacing: 8) {
                     Text(DateFormatter.dayFormatter.string(from: currentTime))
-                        .font(.system(size: 18, weight: .semibold))
-                        .foregroundColor(Color(hex: "374151"))
+                        .font(.system(size: geometry.size.width * 0.010, weight: .regular))
                     Text(DateFormatter.timeFormatter.string(from: currentTime))
-                        .font(.system(size: 24, weight: .bold, design: .monospaced))
-                        .foregroundColor(Color(hex: "4338ca"))
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 8)
-                        .background(
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(Color(hex: "4338ca").opacity(0.1))
-                        )
+                        .font(.system(size: geometry.size.width * 0.013, weight: .semibold))
+                        .foregroundColor(Color(hex: "0A84FF"))
                 }
-                .padding(.trailing, geometry.size.width * 0.03)
+                .padding(.trailing, geometry.size.width * 0.015)
             }
-            .padding(.horizontal, geometry.size.width * 0.04)
-            .padding(.vertical, geometry.size.height * 0.025)
+            .padding(.horizontal, geometry.size.width * 0.015)
+            .padding(.vertical, geometry.size.width * 0.015)
             
             Rectangle()
                 .frame(height: 3)
                 .foregroundStyle(
                     LinearGradient(
-                        colors: [Color(hex: "4338ca"), Color(hex: "8b5cf6"), Color(hex: "4338ca")],
+                        colors: [Color(hex: "0A84FF"), Color(hex: "0A84FF"), Color(hex: "0A84FF")],
                         startPoint: .leading,
                         endPoint: .trailing
                     )
@@ -588,43 +566,44 @@ struct ContentView: View {
     }
     
     func cameraSection(geometry: GeometryProxy) -> some View {
-        VStack(spacing: 4) {
-            Group {
-                KameraGandarView()
-                    .foregroundColor(.clear)
-                    .frame(height: geometry.size.height * 0.35)
-                    .overlay(
-                        Rectangle()
-                            .fill(Color.gray.opacity(0.2))
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                            .overlay(
-                                VStack {
-                                    HStack {
-                                        Label("KAMERA GANDAR", systemImage: "camera.fill")
-                                            .foregroundColor(.white)
-                                            .font(.system(size: 14, weight: .semibold))
-                                            .padding(.horizontal, 12)
-                                            .padding(.vertical, 6)
-                                            .background(
-                                                RoundedRectangle(cornerRadius: 20)
-                                                    .fill(.black.opacity(0.7))
-                                            )
-                                        Spacer()
-                                    }
+        VStack(spacing: geometry.size.height * 0.015) {
+            KameraGandarView()
+                .foregroundColor(.clear)
+                .frame(maxHeight:.infinity)
+                .cornerRadius(16)
+                .overlay(
+                    Rectangle()
+                        .fill(Color.gray.opacity(0))
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .overlay(
+                            VStack {
+                                HStack {
+                                    Label("KAMERA GANDAR", systemImage: "camera.fill")
+                                        .foregroundColor(.white)
+                                        .font(.system(size: 14, weight: .semibold))
+                                        .padding(.horizontal, 12)
+                                        .padding(.vertical, 6)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .fill(.black.opacity(0.7))
+                                        )
                                     Spacer()
                                 }
+                                Spacer()
+                            }
                                 .padding(12)
-                            )
-                    )
-                    .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
-            }
+                        )
+                )
+                .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+            
             
             KameraLajurView()
                 .foregroundColor(.clear)
-                .frame(height: geometry.size.height * 0.35)
+                .frame(maxHeight:.infinity)
+                .cornerRadius(16)
                 .overlay(
                     Rectangle()
-                        .fill(Color.gray.opacity(0.2))
+                        .fill(Color.gray.opacity(0))
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                         .overlay(
                             VStack {
@@ -642,37 +621,37 @@ struct ContentView: View {
                                 }
                                 Spacer()
                             }
-                            .padding(12)
+                                .padding(12)
                         )
                 )
                 .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
         }
-        .frame(width: geometry.size.width * 0.42)
+        .frame(width: geometry.size.width * 0.4)
         .padding(.leading, geometry.size.width * 0.015)
-        .padding(.top, 16)
-        .padding(.bottom, 24)
-        .padding(.trailing, geometry.size.width * 0.005)
+        .padding(.top, (geometry.size.width * 0.015))
+        .padding(.bottom, geometry.size.width * 0.015)
+        .padding(.trailing, geometry.size.width * 0.015)
     }
     
     func contentSection(geometry: GeometryProxy) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             classificationSection(geometry: geometry)
             
-            Rectangle()
-                .frame(height: 2)
-                .foregroundStyle(
-                    LinearGradient(
-                        colors: [Color.clear, Color(hex: "d1d5db"), Color.clear],
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                )
-                .padding(.horizontal, geometry.size.width * 0.015)
-                .padding(.vertical, geometry.size.height * 0.02)
+//            Rectangle()
+//                .frame(height: 2)
+//                .foregroundStyle(
+//                    LinearGradient(
+//                        colors: [Color.clear, Color(hex: "d1d5db"), Color.clear],
+//                        startPoint: .leading,
+//                        endPoint: .trailing
+//                    )
+//                )
+//                .padding(.horizontal, geometry.size.width * 0.015)
+//                .padding(.vertical, geometry.size.height * 0.02)
             
-            bottomSection(geometry: geometry)
+//            bottomSection(geometry: geometry)
             
-            Spacer()
+//            Spacer()
         }
         .frame(width: geometry.size.width * 0.56)
         .background(Color.white.opacity(0.7))
@@ -684,143 +663,190 @@ struct ContentView: View {
     }
     
     func classificationSection(geometry: GeometryProxy) -> some View {
-        VStack(alignment: .leading, spacing: geometry.size.height * 0.025) {
-            HStack(spacing: geometry.size.width * 0.01) {
-                ForEach(1...5, id: \.self) { idx in
-                    let categoryKey = getRomanNumeral(idx)
-                    let isActive = videoCaptureCoordinator.currentGolongan == idx && videoCaptureCoordinator.shouldActivateGolongan
-                    let percentage = isActive ? String(format: "%.0f%%", videoCaptureCoordinator.currentConfidence * 100) : "0%"
-                    
-                    VStack(spacing: 6) {
-                        Text("Gol. \(idx)")
-                            .font(.system(size: 11, weight: .medium))
-                            .foregroundColor(isActive ? .white : Color(hex: "6b7280"))
-                        Text(percentage)
-                            .font(.system(size: 16, weight: .bold, design: .monospaced))
-                            .foregroundColor(isActive ? .white : Color(hex: "374151"))
-                            .minimumScaleFactor(0.8)
-                    }
-                    .frame(width: geometry.size.width * 0.075, height: geometry.size.width * 0.075)
-                    .background(
-                        RoundedRectangle(cornerRadius: 14)
-                            .fill(
-                                isActive ?
-                                LinearGradient(
-                                    colors: [Color(hex: "10b981"), Color(hex: "059669")],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                ) :
-                                LinearGradient(
-                                    colors: [Color(hex: "f3f4f6"), Color(hex: "e5e7eb")],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
+        VStack {
+            VStack (spacing: geometry.size.width * 0.015) {
+                Text("PONDOK AREN - GD.05")
+                    .font(.system(size: geometry.size.width * 0.025, weight: .bold))
+                    .padding(.top, geometry.size.height * 0.05)
+//                Spacer()
+                
+                HStack(spacing: geometry.size.width * 0.01) {
+                    ForEach(1...5, id: \.self) { idx in
+                        let categoryKey = getRomanNumeral(idx)
+                        let isActive = videoCaptureCoordinator.currentGolongan == idx && videoCaptureCoordinator.shouldActivateGolongan
+                        let percentage = isActive ? String(format: "%.0f%%", videoCaptureCoordinator.currentConfidence * 100) : "0%"
+                        
+                        VStack(spacing: 6) {
+                            Text("\(categoryKey)")
+                                .font(.system(size: geometry.size.width * 0.05, weight: .medium))
+                                .foregroundColor(isActive ? .white : Color(hex: "6b7280"))
+                        }
+                        .frame(height: geometry.size.width * 0.082)
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            RoundedRectangle(cornerRadius: 14)
+                                .fill(
+                                    isActive ?
+                                    LinearGradient(
+                                        colors: [Color(hex: "30D158"), Color(hex: "30D158")],
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    ) :
+                                        LinearGradient(
+                                            colors: [Color(hex: "f3f4f6"), Color(hex: "e5e7eb")],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        )
                                 )
-                            )
-                    )
-                    .shadow(color: isActive ? Color(hex: "10b981").opacity(0.3) : .black.opacity(0.05),
-                           radius: isActive ? 6 : 2, x: 0, y: isActive ? 3 : 1)
-                    .scaleEffect(isActive ? 1.05 : 1.0)
-                    .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isActive)
-                    .onTapGesture {
-                        selectedGolongan = idx
-                        updateTarif(for: idx)
-                    }
-                }
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, geometry.size.width * 0.015)
-            
-            VStack(spacing: 12) {
-                DetailCard(title: "Golongan",
-                          value: videoCaptureCoordinator.shouldActivateGolongan ?
-                                getRomanNumeral(videoCaptureCoordinator.currentGolongan) : "I",
-                          color: Color(hex: "4338ca"))
-                DetailCard(title: "Tarif", value: tarif, color: Color(hex: "059669"))
-                DetailCard(title: "Status", value: paymentStatus,
-                          color: paymentStatus == "BELUM TERBAYAR" ? Color(hex: "dc2626") : Color(hex: "059669"))
-                DetailCard(title: "Waktu", value: DateFormatter.timeOnlyFormatter.string(from: currentTime),
-                          color: Color(hex: "7c3aed"))
-            }
-            .padding(.horizontal, geometry.size.width * 0.02)
-        }
-        .padding(.vertical, geometry.size.height * 0.03)
-    }
-    
-    func bottomSection(geometry: GeometryProxy) -> some View {
-        VStack(spacing: geometry.size.height * 0.025) {
-            Text("Tol Pondok Aren 1")
-                .font(.system(size: 28, weight: .bold, design: .rounded))
-                .foregroundStyle(
-                    LinearGradient(
-                        colors: [Color(hex: "4338ca"), Color(hex: "7c3aed")],
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                )
-                .padding(.vertical, geometry.size.height * 0.02)
-            
-            HStack(alignment: .top, spacing: geometry.size.width * 0.02) {
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Jumlah Kendaraan")
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundColor(Color(hex: "374151"))
-                        .padding(.bottom, 6)
-                    
-                    VStack(spacing: 6) {
-                        ForEach(["I", "II", "III", "IV", "V"], id: \.self) { g in
-                            HStack {
-                                Text("Gol. \(g)")
-                                    .font(.system(size: 14, weight: .medium))
-                                    .foregroundColor(Color(hex: "6b7280"))
-                                Spacer()
-                                Text("\(vehicleCount[g] ?? 0)")
-                                    .font(.system(size: 16, weight: .bold, design: .monospaced))
-                                    .foregroundColor(Color(hex: "374151"))
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 3)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 6)
-                                            .fill(Color(hex: "f3f4f6"))
-                                    )
-                            }
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 6)
-                            .background(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(Color.white)
-                                    .shadow(color: .black.opacity(0.05), radius: 2, x: 0, y: 1)
-                            )
+                        )
+                        .shadow(color: isActive ? Color(hex: "10b981").opacity(0.3) : .black.opacity(0.05),
+                                radius: isActive ? 6 : 2, x: 0, y: isActive ? 3 : 1)
+                        .scaleEffect(isActive ? 1.05 : 1.0)
+                        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isActive)
+                        .onTapGesture {
+                            selectedGolongan = idx
+                            updateTarif(for: idx)
                         }
                     }
                 }
                 .frame(maxWidth: .infinity)
+                .padding(.horizontal, geometry.size.width * 0.015)
                 
-                VStack(alignment: .trailing, spacing: 12) {
-                    HStack {
-                        Image(systemName: "clock.fill")
-                            .foregroundColor(Color(hex: "7c3aed"))
-                        Text("Shift: 1 (06.00-14.00)")
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(Color(hex: "374151"))
+                
+                
+                HStack(spacing: 24) {
+                    HStack(spacing: 8) {
+                        Circle().fill(Color.green).frame(width: 16, height: 16)
+                        Text("Sangat Yakin").font(.system(size: geometry.size.width * 0.01, weight: .regular))
                     }
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color(hex: "7c3aed").opacity(0.1))
-                    )
-                    
-                    HStack(spacing: 12) {
-                        StaffCard(name: "Gibran Shevaldo", role: "Operator 1")
-                        StaffCard(name: "Jonathan Tjahjadi", role: "Operator 2")
+                    HStack(spacing: 8) {
+                        Circle().fill(Color.yellow).frame(width: 16, height: 16)
+                        Text("Perlu Ditinjau").font(.system(size: geometry.size.width * 0.01, weight: .regular))
                     }
                 }
-                .frame(maxWidth: .infinity)
             }
-            .padding(.horizontal, geometry.size.width * 0.02)
+            .frame(maxHeight: .infinity)
+            
+            Divider()
+                .frame(height: 1)
+                .background(Color.gray.opacity(0.3))
+                .padding(.horizontal, geometry.size.height * 0.015)
+            
+            HStack{
+                VStack(spacing: 12) {
+                    HStack{
+                        DetailCard(title: "Golongan",
+                                   value: videoCaptureCoordinator.shouldActivateGolongan ?
+                                   getRomanNumeral(videoCaptureCoordinator.currentGolongan) : "I",
+                                   color: Color(hex: "0A84FF"))
+                        DetailCard(title: "Tarif", value: tarif, color: Color(hex: "0A84FF"))
+                    }
+                    HStack{
+                        DetailCard(title: "Waktu", value: DateFormatter.timeOnlyFormatter.string(from: currentTime),
+                                   color: Color(hex: "0A84FF"))
+                        DetailCard(title: "Kartu Pembayaran", value: paymentCard,
+                                   color: Color(hex: "0A84FF"))
+                    }
+                    DetailCard(title: "Status", value: paymentStatus,
+                               color: paymentStatus == "BELUM TERBAYAR" ? Color(hex: "dc2626") : Color(hex: "30D158"))
+                    
+                }
+                .frame(maxHeight: .infinity)
+                .padding(.horizontal, geometry.size.width * 0.015)
+                
+                VStack(spacing: 12) {
+                    Text("Shift 1")
+                        .font(.system(size: geometry.size.width * 0.010, weight: .bold))
+                        .foregroundColor(Color(hex: "0A84FF"))
+                    StaffCard(name: "Gibran Shevaldo", role: "Operator 1")
+                    StaffCard(name: "Jonathan Tjahjadi", role: "Operator 2")
+                }
+                .padding(.trailing, geometry.size.width * 0.015)
+                
+            }
+            .padding(.vertical, geometry.size.width * 0.015)
+            
+           
+        
         }
-        .padding(.bottom, geometry.size.height * 0.03)
+
     }
+    
+//    func bottomSection(geometry: GeometryProxy) -> some View {
+//        VStack(spacing: geometry.size.height * 0.025) {
+//            Text("Tol Pondok Aren 1")
+//                .font(.system(size: 28, weight: .bold, design: .rounded))
+//                .foregroundStyle(
+//                    LinearGradient(
+//                        colors: [Color(hex: "4338ca"), Color(hex: "7c3aed")],
+//                        startPoint: .leading,
+//                        endPoint: .trailing
+//                    )
+//                )
+//                .padding(.vertical, geometry.size.height * 0.02)
+//            
+//            HStack(alignment: .top, spacing: geometry.size.width * 0.02) {
+//                VStack(alignment: .leading, spacing: 12) {
+//                    Text("Jumlah Kendaraan")
+//                        .font(.system(size: 18, weight: .bold))
+//                        .foregroundColor(Color(hex: "374151"))
+//                        .padding(.bottom, 6)
+//                    
+//                    VStack(spacing: 6) {
+//                        ForEach(["I", "II", "III", "IV", "V"], id: \.self) { g in
+//                            HStack {
+//                                Text("Gol. \(g)")
+//                                    .font(.system(size: 14, weight: .medium))
+//                                    .foregroundColor(Color(hex: "6b7280"))
+//                                Spacer()
+//                                Text("\(vehicleCount[g] ?? 0)")
+//                                    .font(.system(size: 16, weight: .bold, design: .monospaced))
+//                                    .foregroundColor(Color(hex: "374151"))
+//                                    .padding(.horizontal, 10)
+//                                    .padding(.vertical, 3)
+//                                    .background(
+//                                        RoundedRectangle(cornerRadius: 6)
+//                                            .fill(Color(hex: "f3f4f6"))
+//                                    )
+//                            }
+//                            .padding(.horizontal, 10)
+//                            .padding(.vertical, 6)
+//                            .background(
+//                                RoundedRectangle(cornerRadius: 8)
+//                                    .fill(Color.white)
+//                                    .shadow(color: .black.opacity(0.05), radius: 2, x: 0, y: 1)
+//                            )
+//                        }
+//                    }
+//                }
+//                .frame(maxWidth: .infinity)
+//                
+//                VStack(alignment: .trailing, spacing: 12) {
+//                    HStack {
+//                        Image(systemName: "clock.fill")
+//                            .foregroundColor(Color(hex: "7c3aed"))
+//                        Text("Shift: 1 (06.00-14.00)")
+//                            .font(.system(size: 14, weight: .semibold))
+//                            .foregroundColor(Color(hex: "374151"))
+//                    }
+//                    .padding(.horizontal, 12)
+//                    .padding(.vertical, 6)
+//                    .background(
+//                        RoundedRectangle(cornerRadius: 10)
+//                            .fill(Color(hex: "7c3aed").opacity(0.1))
+//                    )
+//                    
+//                    HStack(spacing: 12) {
+//                        StaffCard(name: "Gibran Shevaldo", role: "Operator 1")
+//                        StaffCard(name: "Jonathan Tjahjadi", role: "Operator 2")
+//                    }
+//                }
+//                .frame(maxWidth: .infinity)
+//            }
+//            .padding(.horizontal, geometry.size.width * 0.02)
+//        }
+//        .padding(.bottom, geometry.size.height * 0.03)
+//    }
     
     private func updateTarif(for golongan: Int) {
         tarif = tarifGolongan[golongan] ?? "Rp9.500"
@@ -847,7 +873,7 @@ struct ContentView: View {
         guard isAwaitingConfirmation,
               let golongan = pendingGolongan,
               key == golongan else { return }
-
+        
         confirmedGolongan = getRomanNumeral(golongan)
         updateTarif(for: golongan)
         updateVehicleCount(for: getRomanNumeral(golongan))
@@ -883,7 +909,7 @@ struct CustomSuccessAlert: View {
                 ZStack {
                     // Ripple effect
                     Circle()
-                        .fill(Color(hex: "10b981").opacity(0.2))
+                        .fill(Color(hex: "30D158").opacity(0.2))
                         .frame(width: 120, height: 120)
                         .scaleEffect(rippleScale)
                     
@@ -891,7 +917,7 @@ struct CustomSuccessAlert: View {
                     Circle()
                         .fill(
                             LinearGradient(
-                                colors: [Color(hex: "10b981"), Color(hex: "059669")],
+                                colors: [Color(hex: "30D158"), Color(hex: "30D158")],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
@@ -911,21 +937,21 @@ struct CustomSuccessAlert: View {
                 // Title
                 Text("Konfirmasi Berhasil!")
                     .font(.system(size: 24, weight: .bold, design: .rounded))
-                    .foregroundColor(Color(hex: "1f2937"))
+                    .foregroundColor(Color(hex: "0A84FF"))
                     .padding(.bottom, 8)
                 
                 // Subtitle
                 Text("Kendaraan telah berhasil dikonfirmasi")
                     .font(.system(size: 16, weight: .medium))
-                    .foregroundColor(Color(hex: "6b7280"))
+                    .foregroundColor(Color(hex: "1c1c1c"))
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 24)
                 
                 // Vehicle details
                 VStack(spacing: 12) {
-                    DetailRow(icon: "car.2.fill", title: "Golongan", value: golongan, color: Color(hex: "4338ca"))
-                    DetailRow(icon: "banknote.fill", title: "Tarif", value: tarif, color: Color(hex: "059669"))
-                    DetailRow(icon: "clock.fill", title: "Waktu", value: DateFormatter.timeOnlyFormatter.string(from: Date()), color: Color(hex: "7c3aed"))
+                    DetailRow(icon: "car.2.fill", title: "Golongan", value: golongan, color: Color(hex: "0A84FF"))
+                    DetailRow(icon: "banknote.fill", title: "Tarif", value: tarif, color: Color(hex: "0A84FF"))
+                    DetailRow(icon: "clock.fill", title: "Waktu", value: DateFormatter.timeOnlyFormatter.string(from: Date()), color: Color(hex: "0A84FF"))
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 16)
@@ -950,7 +976,7 @@ struct CustomSuccessAlert: View {
                     .padding(.vertical, 12)
                     .background(
                         LinearGradient(
-                            colors: [Color(hex: "4338ca"), Color(hex: "6366f1")],
+                            colors: [Color(hex: "30D158"), Color(hex: "30D158")],
                             startPoint: .leading,
                             endPoint: .trailing
                         )

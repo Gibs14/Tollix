@@ -24,16 +24,19 @@ struct DetailCard: View {
                     .foregroundColor(color)
             }
             Spacer()
-            RoundedRectangle(cornerRadius: 6)
-                .fill(color)
-                .frame(width: 4, height: 40)
+//            RoundedRectangle(cornerRadius: 6)
+//                .fill(color)
+//                .frame(width: 4)
         }
+        
+        .frame(maxHeight: .infinity)
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
         .background(
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color.white)
                 .shadow(color: .black.opacity(0.05), radius: 3, x: 0, y: 2)
+            
         )
     }
 }
