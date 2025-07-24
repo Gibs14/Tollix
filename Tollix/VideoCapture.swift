@@ -54,7 +54,7 @@ class VideoCaptureCoordinator: NSObject, AVCaptureVideoDataOutputSampleBufferDel
         super.init()
         session.sessionPreset = .high
 
-        guard let device = AVCaptureDevice.devices(for: .video).first(where: { $0.localizedName.contains("iPhone") }) else {
+        guard let device = AVCaptureDevice.devices(for: .video).first(where: { $0.localizedName.contains("-") }) else {
             print("C270 webcam not found")
             return
         }

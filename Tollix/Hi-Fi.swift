@@ -47,13 +47,13 @@ struct Hi_Fi: View {
                 .overlay(Rectangle().frame(height: 4).foregroundColor(.blue), alignment: .bottom)
 
                 // MAIN CONTENT
-                HStack(spacing: 0) {
+                HStack(spacing: geometry.size.width * 0.015) {
 
                     // KIRI: KAMERA
-                    VStack(spacing: geometry.size.height * 0.02) {
+                    VStack(spacing: geometry.size.height * 0.015) {
                         RoundedRectangle(cornerRadius: 16)
                             .foregroundColor(.clear)
-                            .frame(height: geometry.size.height * 0.42)
+                            .frame(height: geometry.size.height * 0.425)
                             .overlay(
                                 KameraGandarView()
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
@@ -80,7 +80,7 @@ struct Hi_Fi: View {
                         
                         RoundedRectangle(cornerRadius: 16)
                             .foregroundColor(.clear)
-                            .frame(height: geometry.size.height * 0.42)
+                            .frame(height: geometry.size.height * 0.425)
                             .overlay(
                                 KameraLajurView()
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
@@ -105,39 +105,41 @@ struct Hi_Fi: View {
                             )
                             .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
                     }
-                    .padding(.leading, 16)
-                    .padding(.vertical, 16)
                     // KANAN: KONTEN
                         
-                    VStack(spacing: geometry.size.height * 0.025) {
-                        Text("PONDOK AREN - GD.05")
-                            .font(.system(size: geometry.size.width * 0.035, weight: .heavy, design: .rounded))
-                            .padding(.top, geometry.size.height * 0.03)
+                    VStack(spacing: geometry.size.height * 0.05) {
+                        VStack {
+                            Text("PONDOK AREN - GD.05")
+                                .font(.system(size: geometry.size.width * 0.025, weight: .bold))
+                                .padding(.top, geometry.size.height * 0.05)
+                            HStack(spacing: geometry.size.width * 0.008) {
+                                ForEach(["I", "II", "III", "IV", "V"], id: \.self) { item in
+                                    Text(item)
+                                        .frame(height: geometry.size.width * 0.082)
+                                        .frame(maxWidth: .infinity)
+                                        .background(item == "IV" ? Color.yellow : Color.gray.opacity(0.3))
+                                        .foregroundColor(item == "IV" ? .black : .gray)
+                                        .cornerRadius(16)
+                                        .shadow(radius: 1)
+                                        .font(.system(size: geometry.size.width * 0.025, design: .rounded))
+                                }
+                            }
 
-                        HStack(spacing: geometry.size.width * 0.015) {
-                            ForEach(["I", "II", "III", "IV", "V"], id: \.self) { item in
-                                Text(item)
-                                    .frame(width: geometry.size.width * 0.07, height: geometry.size.width * 0.07)
-                                    .background(item == "IV" ? Color.yellow : Color.gray.opacity(0.3))
-                                    .foregroundColor(item == "IV" ? .black : .gray)
-                                    .cornerRadius(16)
-                                    .shadow(radius: 1)
-                                    .font(.system(size: geometry.size.width * 0.025, design: .rounded))
+                            // Legend
+                            HStack(spacing: 24) {
+                                HStack(spacing: 8) {
+                                    Circle().fill(Color.green).frame(width: 16, height: 16)
+                                    Text("Sangat Yakin").font(.system(size: geometry.size.width * 0.01, weight: .regular))
+                                }
+                                HStack(spacing: 8) {
+                                    Circle().fill(Color.yellow).frame(width: 16, height: 16)
+                                    Text("Perlu Ditinjau").font(.system(size: geometry.size.width * 0.01, weight: .regular))
+                                }
                             }
                         }
-
-                        // Legend
-                        HStack(spacing: 24) {
-                            HStack(spacing: 8) {
-                                Circle().fill(Color.green).frame(width: 16, height: 16)
-                                Text("Sangat Yakin").font(.system(size: 14, weight: .bold))
-                            }
-                            HStack(spacing: 8) {
-                                Circle().fill(Color.yellow).frame(width: 16, height: 16)
-                                Text("Perlu Ditinjau").font(.system(size: 14, weight: .bold))
-                            }
-                        }
-
+                        .frame(height: geometry.size.height * 0.5)
+                        .frame(maxWidth: .infinity)
+                        
                         // Divider
                         Divider()
                             .frame(height: 2)
@@ -146,6 +148,7 @@ struct Hi_Fi: View {
 
                         // KONTEN UTAMA BAWAH
                         HStack(alignment: .top, spacing: geometry.size.width * 0.04) {
+                            
 
                             // LEFT: INFO GRID
                             VStack(alignment: .leading, spacing: geometry.size.height * 0.02) {
@@ -205,11 +208,12 @@ struct Hi_Fi: View {
                             .padding(.top, geometry.size.height * 0.0005)
 
                         }
+                        .frame(height: geometry.size.height * 0.5)
+                        .frame(maxWidth: .infinity)
                     }
-                    .padding(.horizontal, geometry.size.width * 0.03)
-                    .padding(.bottom, geometry.size.height * 0.04)
-                    .frame(width: geometry.size.width * 0.5)
                 }
+                .padding(.vertical, (geometry.size.width * 0.015))
+                .padding(.horizontal, (geometry.size.width * 0.015))
             }
             .background(Color.gray.opacity(0.1))
         }
